@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recycler Directory — Second Circuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C201D;
+  --paper:#EDEEE6;
+  --paper-raised:#F6F6F0;
+  --forest:#2C5443;
+  --forest-deep:#1E3B30;
+  --copper:#B8712F;
+  --copper-deep:#95591F;
+  --sage:#7C9884;
+  --rule:#CBCABA;
+  --rule-soft:#DEDDD0;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Source Serif 4', serif;
+  font-size:17px;
+  line-height:1.6;
+}
+h1,h2,h3,h4,.eyebrow,nav,button,.tag,.stat-num,.cat-name{
+  font-family:'Archivo', sans-serif;
+}
+a{color:var(--forest-deep);}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+  outline:2px solid var(--copper); outline-offset:2px;
+}
+
+/* ---------- top bar ---------- */
+header.top{
+  border-bottom:1px solid var(--rule);
+  background:var(--paper-raised);
+  position:sticky; top:0; z-index:20;
+}
+.top-inner{
+  max-width:1080px;margin:0 auto;padding:16px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:.2px;text-decoration:none;color:var(--ink);}
+.brand svg{width:26px;height:26px;flex:none;}
+.top-nav{display:flex;gap:26px;font-size:15px;font-weight:600;flex-wrap:wrap;}
+.top-nav a{text-decoration:none;color:var(--ink);border-bottom:2px solid transparent;padding-bottom:2px;}
+.top-nav a:hover{border-color:var(--copper);}
+.top-nav a.active{border-color:var(--forest);color:var(--forest-deep);}
+
+/* ---------- page header (non-home pages) ---------- */
+.page-head{
+  background:var(--forest-deep);color:#fff;
+  padding:56px 0 44px;border-bottom:1px solid var(--ink);
+}
+.page-head .eyebrow{color:#CBAE84;}
+.page-head h1{font-size:clamp(28px,3.6vw,42px);margin:0 0 12px;font-weight:800;letter-spacing:-0.4px;}
+.page-head p{max-width:60ch;color:#D9E3DC;font-size:17px;margin:0;}
+
+/* ---------- hero (home only) ---------- */
+.hero{position:relative;background:var(--forest-deep);color:var(--paper-raised);overflow:hidden;border-bottom:1px solid var(--ink);}
+.hero-inner{
+  max-width:1080px;margin:0 auto;padding:88px 28px 76px;position:relative;z-index:2;
+  display:grid;grid-template-columns:1.15fr 0.85fr;gap:40px;align-items:center;
+}
+.hero h1{font-size:clamp(34px,4.4vw,54px);line-height:1.06;margin:0 0 22px;font-weight:800;letter-spacing:-0.5px;color:#fff;}
+.hero p.lede{font-family:'Source Serif 4', serif;font-size:19px;max-width:46ch;color:#D9E3DC;margin:0 0 30px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:13px 22px;
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;
+  border-radius:3px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;
+}
+.btn-copper{background:var(--copper);color:#fff;}
+.btn-copper:hover{background:var(--copper-deep);}
+.btn-line{border-color:#8FAA9C;color:#EDF3EF;background:transparent;}
+.btn-line:hover{border-color:#fff;color:#fff;}
+.hero-art{position:relative;height:280px;}
+.hero-art svg{width:100%;height:100%;}
+
+.stat-strip{background:var(--ink);border-bottom:1px solid #000;}
+.stat-strip .wrap{display:grid;grid-template-columns:repeat(3,1fr);padding:22px 28px;}
+.stat{color:#EDEEE6;padding:0 18px;border-left:1px solid #3A4038;}
+.stat:first-child{border-left:none;padding-left:0;}
+.stat-num{font-size:26px;font-weight:800;color:var(--copper);display:block;}
+.stat-label{font-size:13.5px;color:#B9C2BA;font-family:'Source Serif 4',serif;}
+
+/* ---------- section shell ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--rule);}
+.sec-head{max-width:640px;margin-bottom:40px;}
+.eyebrow{font-size:13px;font-weight:700;color:var(--copper-deep);letter-spacing:.3px;margin:0 0 10px;}
+h2{font-size:clamp(26px,3vw,34px);margin:0 0 12px;font-weight:800;letter-spacing:-0.3px;}
+.sec-head p{color:#3F453F;max-width:56ch;}
+
+/* ---------- segregation guide ---------- */
+.cat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--paper-raised);}
+.cat-btn{
+  border:none;border-right:1px solid var(--rule);background:transparent;padding:20px 14px;
+  text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:10px;min-height:118px;
+}
+.cat-btn:last-child{border-right:none;}
+.cat-btn:hover{background:#E4E6DA;}
+.cat-btn.active{background:var(--forest);}
+.cat-btn.active .cat-name,.cat-btn.active .cat-icon{color:#fff;}
+.cat-icon{width:24px;height:24px;color:var(--forest);}
+.cat-btn.active .cat-icon svg{stroke:#fff;}
+.cat-icon svg{width:100%;height:100%;stroke:var(--forest);}
+.cat-name{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.25;}
+
+.cat-detail{
+  margin-top:0;background:var(--forest);color:#EFF4F1;
+  border:1px solid var(--forest-deep);border-top:none;border-radius:0 0 4px 4px;
+  padding:32px 36px;display:grid;grid-template-columns:1fr 1fr;gap:34px;
+}
+.cat-detail h3{margin:0 0 8px;font-size:21px;color:#fff;}
+.cat-detail .examples{font-size:14.5px;color:#C9DACF;margin-bottom:16px;}
+.cat-detail .block-label{font-size:12.5px;font-weight:700;color:var(--copper);margin-bottom:6px;}
+.cat-detail p{margin:0 0 4px;font-size:15px;color:#E4ECE7;}
+
+@media(max-width:820px){
+  .cat-row{grid-template-columns:repeat(2,1fr);}
+  .cat-btn{border-bottom:1px solid var(--rule);}
+  .cat-detail{grid-template-columns:1fr;}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-art{display:none;}
+  .stat-strip .wrap{grid-template-columns:1fr;gap:14px;}
+  .stat{border-left:none;border-top:1px solid #3A4038;padding:14px 0 0;}
+  .stat:first-child{border-top:none;padding-top:0;}
+}
+
+/* ---------- directory ---------- */
+.directory-note{
+  background:#FCF3E6;border:1px solid #E8CFA0;color:#6B4E1F;
+  padding:12px 16px;border-radius:4px;font-size:14px;margin-bottom:28px;
+}
+.filters{
+  display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px;
+  padding:16px;background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;
+}
+.filters input, .filters select{
+  font-family:'Source Serif 4',serif;font-size:15px;
+  padding:10px 12px;border:1px solid var(--rule);border-radius:3px;background:#fff;color:var(--ink);
+}
+.filters input[type="text"]{flex:1 1 220px;}
+.filters select{flex:0 1 170px;}
+.result-count{font-size:14px;color:#5B6158;margin-bottom:14px;font-family:'Archivo',sans-serif;font-weight:600;}
+
+.recycler-list{display:flex;flex-direction:column;}
+.recycler-row{
+  display:grid;grid-template-columns:1.4fr 0.7fr 1.1fr 0.9fr;gap:18px;
+  padding:20px 4px;border-bottom:1px solid var(--rule-soft);align-items:start;
+}
+.recycler-row:first-child{border-top:1px solid var(--rule-soft);}
+.r-name{font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;margin:0 0 4px;}
+.r-loc{font-size:14px;color:#5B6158;}
+.r-types{display:flex;flex-wrap:wrap;gap:6px;}
+.tag{
+  font-size:12.5px;font-weight:600;padding:4px 9px;border-radius:20px;
+  background:#E3E9E2;color:var(--forest-deep);border:1px solid #CBD8CB;white-space:nowrap;
+}
+.r-auth{font-size:13.5px;color:#5B6158;}
+.r-auth b{color:var(--forest-deep);font-family:'Archivo',sans-serif;font-size:12.5px;display:block;margin-bottom:2px;}
+.no-results{padding:30px 4px;color:#5B6158;font-style:italic;}
+
+@media(max-width:760px){ .recycler-row{grid-template-columns:1fr;gap:6px;} }
+
+/* ---------- why grid ---------- */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);border-radius:4px;overflow:hidden;}
+.why-cell{padding:26px 24px;border-right:1px solid var(--rule);background:var(--paper-raised);}
+.why-cell:last-child{border-right:none;}
+.why-cell h4{margin:0 0 8px;font-size:16px;font-family:'Archivo',sans-serif;font-weight:700;}
+.why-cell p{margin:0;font-size:14.5px;color:#4A4F45;}
+@media(max-width:760px){
+  .why-grid{grid-template-columns:1fr;}
+  .why-cell{border-right:none;border-bottom:1px solid var(--rule);}
+}
+
+/* ---------- FAQ ---------- */
+.faq-item{border-bottom:1px solid var(--rule-soft);}
+.faq-item summary{
+  cursor:pointer;padding:18px 4px;font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;
+  list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:"+";font-size:22px;color:var(--copper);flex:none;transition:transform .18s ease;}
+.faq-item[open] summary::after{transform:rotate(45deg);}
+.faq-item p{margin:0 0 20px;color:#3F453F;font-size:15.5px;max-width:68ch;}
+
+/* ---------- about / SDG / ISO page pieces ---------- */
+.sdg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.sdg-card{
+  background:var(--paper-raised);border:1px solid var(--rule);border-left:4px solid var(--forest);
+  padding:18px 20px;border-radius:3px;
+}
+.sdg-card b{font-family:'Archivo',sans-serif;font-size:14.5px;display:block;margin-bottom:4px;color:var(--forest-deep);}
+.sdg-card p{margin:0;font-size:14.5px;color:#4A4F45;}
+@media(max-width:760px){ .sdg-grid{grid-template-columns:1fr;} }
+
+.timeline{border-left:2px solid var(--rule);margin-left:6px;padding-left:26px;display:flex;flex-direction:column;gap:26px;}
+.timeline-item{position:relative;}
+.timeline-item::before{content:"";position:absolute;left:-31px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--copper);}
+.timeline-item h4{margin:0 0 6px;font-family:'Archivo',sans-serif;font-size:16px;}
+.timeline-item p{margin:0;font-size:14.5px;color:#4A4F45;max-width:60ch;}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#B9C2BA;padding:50px 0 34px;}
+footer .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:36px;}
+footer h5{color:#EDEEE6;font-family:'Archivo',sans-serif;font-size:14px;margin:0 0 12px;}
+footer p, footer li{font-size:14px;color:#9BA79D;}
+footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
+footer a{color:#C9D2C8;text-decoration:none;}
+footer a:hover{color:#fff;}
+.foot-bottom{max-width:1080px;margin:34px auto 0;padding:20px 28px 0;border-top:1px solid #333A34;font-size:12.5px;color:#7C8880;}
+@media(max-width:760px){ footer .wrap{grid-template-columns:1fr;} }
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v6M12 16v6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2" stroke="#2C5443" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" stroke="#B8712F" stroke-width="1.8"/></svg>
+      Second Circuit
+    </a>
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <a href="guide.html">Segregation guide</a>
+      <a href="directory.html" class="active">Find a recycler</a>
+      <a href="about.html">About &amp; FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">Certified recycler directory</p>
+    <h1>Search recyclers authorised to take your e-waste</h1>
+    <p>Filter by state and by what you're getting rid of. Every listing should be cross-checked against your State Pollution Control Board's current authorisation list before drop-off.</p>
+  </div>
+</div>
+
+<section style="border-bottom:none;">
+  <div class="wrap">
+    <div class="directory-note">
+      Sample listings shown below for demonstration. Before launch, this directory should be populated and kept current from actual State/Central Pollution Control Board authorised-recycler records.
+    </div>
+
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search by recycler name or city…" aria-label="Search recyclers">
+      <select id="stateFilter" aria-label="Filter by state"><option value="">All states</option></select>
+      <select id="typeFilter" aria-label="Filter by e-waste type"><option value="">All e-waste types</option></select>
+    </div>
+
+    <div class="result-count" id="resultCount"></div>
+    <div class="recycler-list" id="recyclerList"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h5>Second Circuit</h5>
+      <p>An e-waste segregation awareness and certified recycler directory, proposed as a low-cost, achievable response to improper e-waste disposal.</p>
+    </div>
+    <div>
+      <h5>Aligned SDGs</h5>
+      <ul>
+        <li>SDG 3 — Good Health and Well-Being</li>
+        <li>SDG 6 — Clean Water and Sanitation</li>
+        <li>SDG 11 — Sustainable Cities</li>
+        <li>SDG 12 — Responsible Consumption</li>
+        <li>SDG 13 — Climate Action</li>
+      </ul>
+    </div>
+    <div>
+      <h5>On this site</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="guide.html">Segregation guide</a></li>
+        <li><a href="about.html">About &amp; FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">Recycler listings are illustrative placeholders pending real CPCB/SPCB data integration.</div>
+</footer>
+
+<script>
+/* ---------------- shared data ---------------- */
+const categories = [
+  {
+    id:"small",
+    name:"Small appliances",
+    icon:'<svg viewBox="0 0 24 24" fill="none"><rect x="6" y="3" width="12" height="18" rx="2" stroke-width="1.6"/><circle cx="12" cy="17" r="1.4" stroke-width="1.6"/></svg>',
+    examples:"Toasters, kettles, hair dryers, mixers, irons, electric shavers",
+    hazard:"Mixed metal-plastic bodies often hide small circuit boards and, in some models, capacitors containing hazardous compounds. Casings that end up incinerated release these into the air.",
+    tip:"Keep the device whole — don't strip it for parts at home. Hand it over intact so a certified facility can dismantle it under controlled conditions."
+  },
+  {
+    id:"it",
+    name:"IT & telecom equipment",
+    icon:'<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="12" rx="1.5" stroke-width="1.6"/><path d="M8 20h8M12 16v4" stroke-width="1.6"/></svg>',
+    examples:"Laptops, desktops, monitors, phones, routers, printers, cables",
+    hazard:"Circuit boards contain lead solder and, in older units, brominated flame retardants. Screens (especially older LCD/CRT types) require separate handling for backlight and glass components.",
+    tip:"Wipe personal data first, then remove any battery if it's user-replaceable and hand both pieces to the recycler — most facilities want batteries submitted separately."
+  },
+  {
+    id:"battery",
+    name:"Batteries",
+    icon:'<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="14" height="10" rx="1.5" stroke-width="1.6"/><rect x="18" y="10" width="2.5" height="4" stroke-width="1.6"/></svg>',
+    examples:"Li-ion packs, power banks, button cells, laptop and e-bike batteries",
+    hazard:"Damaged lithium-ion cells can short-circuit and ignite. Button cells contain mercury or silver oxide. This is the single most dangerous category to put in general trash.",
+    tip:"Never puncture, crush, or expose a battery to heat. Tape over exposed terminals and take it to a recycler the same week — don't stockpile damaged cells at home."
+  },
+  {
+    id:"large",
+    name:"Large appliances",
+    icon:'<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="1.5" stroke-width="1.6"/><path d="M8 8h8M8 13h8" stroke-width="1.6"/></svg>',
+    examples:"Refrigerators, air conditioners, washing machines, water heaters",
+    hazard:"Refrigerants and insulation foam in cooling appliances can contain ozone-depleting or high-warming-potential gases that must be recovered, not vented, before the unit is scrapped.",
+    tip:"Ask the recycler specifically whether they perform certified refrigerant recovery — not every scrap dealer is equipped for this step."
+  },
+  {
+    id:"lighting",
+    name:"Lighting",
+    icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4" stroke-width="1.6"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.3 1 2.1h5c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3Z" stroke-width="1.6"/></svg>',
+    examples:"CFL and fluorescent tubes, LED fixtures, old sodium/mercury-vapour lamps",
+    hazard:"CFLs and fluorescent tubes contain small amounts of mercury vapour. A broken tube in household trash releases it directly into your living space and, later, a landfill.",
+    tip:"Carry tubes upright and separated from other waste. If one breaks, ventilate the room before cleaning up rather than vacuuming the fragments."
+  }
+];
+
+const recyclers = [
+  {name:"Kochi E-Waste Recovery Centre", city:"Kochi", state:"Kerala", types:["it","small","battery"], auth:"SPCB Kerala authorised dismantler"},
+  {name:"Malabar Metal Reclaim", city:"Kozhikode", state:"Kerala", types:["large","it"], auth:"CPCB-listed recycler"},
+  {name:"Green Circuit Recyclers", city:"Bengaluru", state:"Karnataka", types:["it","battery","lighting"], auth:"SPCB Karnataka authorised recycler"},
+  {name:"Deccan Environ Metals", city:"Hyderabad", state:"Telangana", types:["large","it","small"], auth:"CPCB-listed recycler"},
+  {name:"Chennai Urban Mining Co.", city:"Chennai", state:"Tamil Nadu", types:["it","battery"], auth:"SPCB Tamil Nadu authorised dismantler"},
+  {name:"Coimbatore Component Recovery", city:"Coimbatore", state:"Tamil Nadu", types:["small","lighting"], auth:"SPCB Tamil Nadu authorised dismantler"},
+  {name:"Mumbai E-Cycle Facility", city:"Navi Mumbai", state:"Maharashtra", types:["it","large","battery"], auth:"CPCB-listed recycler"},
+  {name:"Pune Circuit Salvage", city:"Pune", state:"Maharashtra", types:["it","small"], auth:"SPCB Maharashtra authorised dismantler"},
+  {name:"Delhi NCR Formal Recyclers", city:"New Delhi", state:"Delhi", types:["it","large","battery","lighting"], auth:"CPCB-listed recycler"},
+  {name:"Kolkata Resource Recovery", city:"Kolkata", state:"West Bengal", types:["small","it"], auth:"SPCB West Bengal authorised recycler"}
+];
+
+const typeLabels = {small:"Small appliances", it:"IT & telecom", battery:"Batteries", large:"Large appliances", lighting:"Lighting"};
+
+const faqs = [
+  {q:"Is my old phone actually hazardous, or just wasteful to throw away?", a:"Both. A phone battery can swell and ignite if crushed in a compactor, and its board carries small amounts of lead solder — while also holding recoverable gold, silver and copper that formal recycling can reclaim."},
+  {q:"What if there's no listed recycler near me?", a:"Look for the nearest one that accepts your category and ask whether they take mail-in or drop-off-point submissions — many authorised recyclers run collection points beyond their main facility."},
+  {q:"Can I just give it to a local scrap dealer instead?", a:"Informal dealers often dismantle devices by hand without protective equipment, releasing toxic substances and recovering materials inefficiently. A certified recycler is required to handle both steps safely."},
+  {q:"Does data get wiped before recycling?", a:"Certified recyclers typically offer data destruction, but don't rely on it — factory-reset any device yourself and remove SIM or SD cards before handing it over."},
+  {q:"How is a recycler's authorisation actually verified?", a:"Cross-check the listing against your State Pollution Control Board's current published list of authorised dismantlers and recyclers, or CPCB's national register, before relying on it for drop-off."}
+];
+
+/* ---------------- segregation guide (guide.html) ---------------- */
+function initCategoryGuide(){
+  const catRow = document.getElementById('catRow');
+  if(!catRow) return;
+  const catDetail = document.getElementById('catDetail');
+
+  categories.forEach(c=>{
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.setAttribute('aria-expanded','false');
+    btn.innerHTML = `<span class="cat-icon">${c.icon}</span><span class="cat-name">${c.name}</span>`;
+    btn.addEventListener('click', ()=>selectCategory(c.id, btn));
+    catRow.appendChild(btn);
+  });
+
+  function selectCategory(id, btnEl){
+    const cat = categories.find(c=>c.id===id);
+    const wasActive = btnEl.classList.contains('active');
+    [...catRow.children].forEach(b=>{b.classList.remove('active'); b.setAttribute('aria-expanded','false');});
+
+    if(wasActive){ catDetail.style.display='none'; return; }
+
+    btnEl.classList.add('active');
+    btnEl.setAttribute('aria-expanded','true');
+    catDetail.innerHTML = `
+      <div>
+        <h3>${cat.name}</h3>
+        <p class="examples">${cat.examples}</p>
+        <p class="block-label">Why it needs care</p>
+        <p>${cat.hazard}</p>
+      </div>
+      <div>
+        <p class="block-label">Handling tip</p>
+        <p>${cat.tip}</p>
+      </div>
+    `;
+    catDetail.style.display='grid';
+  }
+}
+
+/* ---------------- recycler directory (directory.html) ---------------- */
+function initDirectory(){
+  const recyclerList = document.getElementById('recyclerList');
+  if(!recyclerList) return;
+
+  const stateFilter = document.getElementById('stateFilter');
+  const typeFilter = document.getElementById('typeFilter');
+  const searchInput = document.getElementById('searchInput');
+  const resultCount = document.getElementById('resultCount');
+
+  [...new Set(recyclers.map(r=>r.state))].sort().forEach(s=>{
+    const opt = document.createElement('option'); opt.value=s; opt.textContent=s;
+    stateFilter.appendChild(opt);
+  });
+  Object.entries(typeLabels).forEach(([k,v])=>{
+    const opt = document.createElement('option'); opt.value=k; opt.textContent=v;
+    typeFilter.appendChild(opt);
+  });
+
+  function render(){
+    const q = searchInput.value.trim().toLowerCase();
+    const st = stateFilter.value;
+    const ty = typeFilter.value;
+
+    const filtered = recyclers.filter(r=>{
+      const matchesQ = !q || r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q);
+      const matchesState = !st || r.state===st;
+      const matchesType = !ty || r.types.includes(ty);
+      return matchesQ && matchesState && matchesType;
+    });
+
+    resultCount.textContent = `${filtered.length} recycler${filtered.length===1?'':'s'} found`;
+    recyclerList.innerHTML = '';
+
+    if(filtered.length===0){
+      recyclerList.innerHTML = '<div class="no-results">No recyclers match those filters yet. Try clearing the search or picking a different state.</div>';
+      return;
+    }
+
+    filtered.forEach(r=>{
+      const row = document.createElement('div');
+      row.className = 'recycler-row';
+      row.innerHTML = `
+        <div>
+          <p class="r-name">${r.name}</p>
+          <p class="r-loc">${r.city}, ${r.state}</p>
+        </div>
+        <div class="r-loc">${r.state}</div>
+        <div class="r-types">${r.types.map(t=>`<span class="tag">${typeLabels[t]}</span>`).join('')}</div>
+        <div class="r-auth"><b>Authorisation</b>${r.auth}</div>
+      `;
+      recyclerList.appendChild(row);
+    });
+  }
+
+  [searchInput,stateFilter,typeFilter].forEach(el=>el.addEventListener('input', render));
+  render();
+}
+
+/* ---------------- FAQ (about.html) ---------------- */
+function initFaq(){
+  const faqList = document.getElementById('faqList');
+  if(!faqList) return;
+  faqs.forEach(f=>{
+    const d = document.createElement('details');
+    d.className = 'faq-item';
+    d.innerHTML = `<summary>${f.q}</summary><p>${f.a}</p>`;
+    faqList.appendChild(d);
+  });
+}
+
+initCategoryGuide();
+initDirectory();
+initFaq();
+
+</script>
+</body>
+</html>
